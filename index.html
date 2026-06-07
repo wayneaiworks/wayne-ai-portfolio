@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wayne AI 商業內容作品集</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600;700&family=Noto+Sans+TC:wght@300;400;500;700&family=Josefin+Sans:wght@200;300;400;600&display=swap');
+:root{--gold:#C9A84C;--gold-light:#E5C97A;--gold-dark:#8B6914;--gold-glow:rgba(201,168,76,.18);--black:#060608;--dark:#0D0D10;--dark2:#131318;--dark3:#1A1A22;--gray:#888898;--gray-light:#AAAABC;--white:#F0EFE8;--fd:'Cormorant Garamond',serif;--fb:'Noto Sans TC',sans-serif;--fl:'Josefin Sans',sans-serif}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--black);color:var(--white);font-family:var(--fb);font-weight:300;line-height:1.8;overflow-x:hidden}
+::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:var(--dark)}::-webkit-scrollbar-thumb{background:var(--gold-dark);border-radius:2px}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.05'/%3E%3C/svg%3E");pointer-events:none;z-index:9999;opacity:.35}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 48px;display:flex;align-items:center;justify-content:space-between;background:linear-gradient(to bottom,rgba(6,6,8,.95),transparent);transition:background .4s}
+nav.scrolled{background:rgba(6,6,8,.96);border-bottom:1px solid rgba(201,168,76,.12)}
+.nav-logo{font-family:var(--fl);font-weight:600;font-size:13px;letter-spacing:.25em;text-transform:uppercase;color:var(--gold)}
+.nav-links{display:flex;gap:36px;list-style:none}
+.nav-links a{font-family:var(--fl);font-size:11px;font-weight:300;letter-spacing:.2em;text-transform:uppercase;color:var(--gray-light);text-decoration:none;transition:color .3s;position:relative}
+.nav-links a::after{content:'';position:absolute;bottom:-3px;left:0;width:0;height:1px;background:var(--gold);transition:width .3s}
+.nav-links a:hover{color:var(--gold)}.nav-links a:hover::after{width:100%}
+.nav-hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px}
+.nav-hamburger span{display:block;width:24px;height:1px;background:var(--gold);transition:all .3s}
+#hero{min-height:100vh;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;padding:120px 48px 80px}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 110%,rgba(201,168,76,.09) 0%,transparent 60%),radial-gradient(ellipse 60% 40% at 20% 30%,rgba(201,168,76,.04) 0%,transparent 50%),linear-gradient(180deg,#060608 0%,#0a0a0e 100%)}
+.hero-lines{position:absolute;inset:0;background-image:linear-gradient(rgba(201,168,76,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(201,168,76,.06) 1px,transparent 1px);background-size:80px 80px;mask-image:radial-gradient(ellipse 80% 80% at 50% 50%,black 0%,transparent 70%)}
+.hero-inner{position:relative;max-width:920px;text-align:center}
+.hero-eyebrow{font-family:var(--fl);font-size:11px;font-weight:300;letter-spacing:.4em;text-transform:uppercase;color:var(--gold);margin-bottom:28px;opacity:0;animation:fadeUp .8s .2s forwards}
+.hero-eyebrow::before,.hero-eyebrow::after{content:'——';margin:0 12px;opacity:.5}
+.hero-title{font-family:var(--fd);font-size:clamp(34px,6vw,74px);font-weight:600;line-height:1.2;color:var(--white);margin-bottom:20px;opacity:0;animation:fadeUp .8s .4s forwards}
+.hero-title em{font-style:normal;background:linear-gradient(135deg,var(--gold-light),var(--gold),var(--gold-dark));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-tags{font-family:var(--fl);font-size:12px;font-weight:300;letter-spacing:.22em;color:var(--gold);margin-bottom:32px;opacity:0;animation:fadeUp .8s .6s forwards}
+.hero-desc{font-size:15px;color:var(--gray-light);max-width:600px;margin:0 auto 48px;opacity:0;animation:fadeUp .8s .8s forwards}
+.hero-cta{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;opacity:0;animation:fadeUp .8s 1s forwards}
+.btn-primary{font-family:var(--fl);font-size:11px;font-weight:400;letter-spacing:.25em;text-transform:uppercase;padding:14px 38px;background:linear-gradient(135deg,var(--gold),var(--gold-dark));color:var(--black);border:none;cursor:pointer;text-decoration:none;display:inline-block;position:relative;overflow:hidden;transition:transform .3s,box-shadow .3s}
+.btn-primary::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,var(--gold-light),var(--gold));opacity:0;transition:opacity .3s}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(201,168,76,.3)}.btn-primary:hover::before{opacity:1}
+.btn-primary span{position:relative;z-index:1}
+.btn-secondary{font-family:var(--fl);font-size:11px;font-weight:400;letter-spacing:.25em;text-transform:uppercase;padding:13px 38px;background:transparent;color:var(--gold);border:1px solid rgba(201,168,76,.4);cursor:pointer;text-decoration:none;display:inline-block;transition:all .3s}
+.btn-secondary:hover{background:rgba(201,168,76,.08);border-color:var(--gold);transform:translateY(-2px)}
+.hero-scroll{position:absolute;bottom:36px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;opacity:0;animation:fadeIn 1s 1.5s forwards}
+.hero-scroll span{font-family:var(--fl);font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:var(--gray)}
+.scroll-line{width:1px;height:48px;background:linear-gradient(to bottom,var(--gold),transparent);animation:scrollPulse 2s infinite}
+section{padding:100px 48px}
+.sec-label{font-family:var(--fl);font-size:10px;font-weight:300;letter-spacing:.5em;text-transform:uppercase;color:var(--gold);margin-bottom:16px;display:flex;align-items:center;gap:16px}
+.sec-label::before{content:'';width:32px;height:1px;background:var(--gold);flex-shrink:0}
+.sec-title{font-family:var(--fd);font-size:clamp(30px,4vw,52px);font-weight:600;line-height:1.2;color:var(--white);margin-bottom:20px}
+.gold-div{width:60px;height:1px;background:linear-gradient(to right,var(--gold),transparent);margin-bottom:48px}
+#about{background:var(--dark)}
+.about-grid{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1.6fr;gap:80px;align-items:center}
+.about-visual{position:relative;aspect-ratio:4/5;background:var(--dark2);border:1px solid rgba(201,168,76,.12);overflow:hidden;display:flex;align-items:center;justify-content:center}
+.about-visual::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(201,168,76,.06) 0%,transparent 60%),radial-gradient(ellipse at 80% 80%,rgba(201,168,76,.08) 0%,transparent 50%)}
+.about-visual-text{font-family:var(--fd);font-size:44px;font-weight:300;letter-spacing:.3em;color:rgba(201,168,76,.1);writing-mode:vertical-rl;position:relative;z-index:1}
+.about-corner{position:absolute;width:40px;height:40px;border-color:var(--gold);border-style:solid;opacity:.5}
+.about-corner.tl{top:12px;left:12px;border-width:1px 0 0 1px}.about-corner.br{bottom:12px;right:12px;border-width:0 1px 1px 0}
+.about-content p{font-size:15px;line-height:2;color:var(--gray-light);margin-bottom:20px}
+.about-content p strong{color:var(--white);font-weight:500}
+.about-stats{display:flex;gap:40px;margin-top:40px;padding-top:32px;border-top:1px solid rgba(201,168,76,.12)}
+.stat-num{font-family:var(--fd);font-size:36px;font-weight:600;color:var(--gold);line-height:1;margin-bottom:6px}
+.stat-label{font-family:var(--fl);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--gray)}
+#services{background:var(--black)}
+.services-inner{max-width:1100px;margin:0 auto}
+.services-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(201,168,76,.08);border:1px solid rgba(201,168,76,.08)}
+.svc-card{background:var(--dark);padding:44px 32px;position:relative;overflow:hidden;transition:background .4s}
+.svc-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(to right,var(--gold),transparent);transform:scaleX(0);transform-origin:left;transition:transform .4s}
+.svc-card:hover{background:var(--dark2)}.svc-card:hover::before{transform:scaleX(1)}
+.svc-num{font-family:var(--fd);font-size:48px;font-weight:300;color:rgba(201,168,76,.12);line-height:1;margin-bottom:20px;transition:color .4s}
+.svc-card:hover .svc-num{color:rgba(201,168,76,.22)}
+.svc-icon{width:40px;height:40px;margin-bottom:20px;color:var(--gold)}
+.svc-name{font-family:var(--fd);font-size:22px;font-weight:600;color:var(--white);margin-bottom:14px}
+.svc-desc{font-size:13px;line-height:1.8;color:var(--gray)}
+#portfolio{background:var(--dark)}
+.portfolio-inner{max-width:1200px;margin:0 auto}
+.sec-subtitle{font-size:14px;color:var(--gray);max-width:560px;margin-bottom:60px}
+.portfolio-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.p-card{background:var(--dark2);border:1px solid rgba(201,168,76,.08);overflow:hidden;transition:transform .4s,border-color .4s,box-shadow .4s}
+.p-card:hover{transform:translateY(-6px);border-color:rgba(201,168,76,.3);box-shadow:0 20px 60px rgba(0,0,0,.5),0 0 0 1px rgba(201,168,76,.1)}
+.p-cover{aspect-ratio:16/9;position:relative;overflow:hidden}
+.cv-tech{background:linear-gradient(135deg,#0a0e1a,#0d1420,#0a1028)}
+.cv-warm{background:linear-gradient(135deg,#1a0e0a,#201408,#1a100a)}
+.cv-repair{background:linear-gradient(135deg,#0a0d1a,#0d1118,#080c14)}
+.cv-food{background:linear-gradient(135deg,#1a1008,#20140a,#1a0e08)}
+.cv-more{background:linear-gradient(135deg,#0d0d14,#111118,#0a0a10)}
+.cv-svg{position:absolute;inset:0;width:100%;height:100%;opacity:.4}
+.cv-badge{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:10px}
+.cv-icon{width:44px;height:44px;border-radius:50%;border:1px solid rgba(201,168,76,.4);display:flex;align-items:center;justify-content:center;color:var(--gold)}
+.cv-txt{font-family:var(--fl);font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:rgba(201,168,76,.6)}
+.p-body{padding:24px 24px 28px}
+.p-type{display:inline-block;font-family:var(--fl);font-size:9px;font-weight:400;letter-spacing:.25em;text-transform:uppercase;color:var(--gold);background:rgba(201,168,76,.08);border:1px solid rgba(201,168,76,.2);padding:4px 10px;margin-bottom:12px}
+.p-name{font-family:var(--fd);font-size:22px;font-weight:600;color:var(--white);margin-bottom:10px}
+.p-desc{font-size:12px;line-height:1.8;color:var(--gray);margin-bottom:20px}
+.p-link{font-family:var(--fl);font-size:10px;letter-spacing:.25em;text-transform:uppercase;color:var(--gold);text-decoration:none;display:inline-flex;align-items:center;gap:8px;transition:gap .3s}
+.p-link::after{content:'→';transition:transform .3s}.p-link:hover{gap:12px}.p-link:hover::after{transform:translateX(4px)}
+.p-card-wide{grid-column:span 2}
+.p-card-wide .p-inner{display:grid;grid-template-columns:1fr 1fr;height:100%}
+.p-card-wide .p-cover{aspect-ratio:auto;min-height:200px}
+.p-card-wide .p-body{display:flex;flex-direction:column;justify-content:center}
+#process{background:var(--black)}
+.process-inner{max-width:1100px;margin:0 auto}
+.process-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:0;position:relative}
+.process-steps::before{content:'';position:absolute;top:28px;left:10%;right:10%;height:1px;background:linear-gradient(to right,transparent,var(--gold-dark),var(--gold),var(--gold-dark),transparent);z-index:0}
+.p-step{padding:0 24px;position:relative;z-index:1}
+.step-num-wrap{display:flex;align-items:center;justify-content:center;margin-bottom:28px}
+.step-num{width:56px;height:56px;background:var(--dark);border:1px solid rgba(201,168,76,.3);display:flex;align-items:center;justify-content:center;font-family:var(--fd);font-size:22px;font-weight:600;color:var(--gold);transition:background .4s,border-color .4s}
+.p-step:hover .step-num{background:rgba(201,168,76,.1);border-color:var(--gold)}
+.step-title{font-family:var(--fd);font-size:20px;font-weight:600;color:var(--white);text-align:center;margin-bottom:12px}
+.step-desc{font-size:13px;line-height:1.8;color:var(--gray);text-align:center}
+#clients{background:var(--dark)}
+.clients-inner{max-width:900px;margin:0 auto}
+.clients-list{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:rgba(201,168,76,.08);border:1px solid rgba(201,168,76,.08)}
+.c-item{background:var(--dark2);padding:28px 36px;display:flex;align-items:flex-start;gap:16px;transition:background .3s}
+.c-item:hover{background:var(--dark3)}
+.c-dot{width:6px;height:6px;border-radius:50%;background:var(--gold);flex-shrink:0;margin-top:8px}
+.c-text{font-size:14px;color:var(--gray-light);line-height:1.7}
+#contact{background:var(--black)}
+.contact-inner{max-width:800px;margin:0 auto;text-align:center}
+.contact-desc{font-size:15px;color:var(--gray);margin-bottom:64px}
+.qr-wrap{display:flex;gap:48px;justify-content:center;flex-wrap:wrap}
+.qr-block{display:flex;flex-direction:column;align-items:center;gap:20px}
+.qr-frame{width:160px;height:160px;background:var(--dark2);border:1px solid rgba(201,168,76,.25);display:flex;align-items:center;justify-content:center;position:relative;padding:12px;transition:border-color .3s,box-shadow .3s}
+.qr-frame:hover{border-color:rgba(201,168,76,.6);box-shadow:0 0 24px rgba(201,168,76,.12)}
+.qr-frame::before{content:'';position:absolute;top:-1px;left:-1px;width:16px;height:16px;border-top:2px solid var(--gold);border-left:2px solid var(--gold);opacity:.7}
+.qr-frame::after{content:'';position:absolute;top:-1px;right:-1px;width:16px;height:16px;border-top:2px solid var(--gold);border-right:2px solid var(--gold);opacity:.7}
+.qr-corner-bl{position:absolute;bottom:-1px;left:-1px;width:16px;height:16px;border-bottom:2px solid var(--gold);border-left:2px solid var(--gold);opacity:.7}
+.qr-corner-br2{position:absolute;bottom:-1px;right:-1px;width:16px;height:16px;border-bottom:2px solid var(--gold);border-right:2px solid var(--gold);opacity:.7}
+.qr-frame img{width:100%;height:100%;image-rendering:pixelated}
+.qr-label{font-family:var(--fl);font-size:11px;font-weight:400;letter-spacing:.3em;text-transform:uppercase;color:var(--gold)}
+footer{background:var(--dark);border-top:1px solid rgba(201,168,76,.1);padding:36px 48px;text-align:center}
+.footer-logo{font-family:var(--fl);font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:12px}
+.footer-copy{font-size:11px;color:var(--gray);letter-spacing:.05em}
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes scrollPulse{0%,100%{opacity:.3}50%{opacity:1}}
+.reveal{opacity:0;transform:translateY(32px);transition:opacity .8s ease,transform .8s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.rd1{transition-delay:.1s}.rd2{transition-delay:.2s}.rd3{transition-delay:.3s}.rd4{transition-delay:.4s}
+@media(max-width:1024px){.services-grid{grid-template-columns:repeat(2,1fr)}.portfolio-grid{grid-template-columns:repeat(2,1fr)}.p-card-wide{grid-column:span 2}.process-steps{grid-template-columns:repeat(2,1fr);gap:48px}.process-steps::before{display:none}.about-grid{grid-template-columns:1fr;gap:40px}.about-visual{max-width:360px;aspect-ratio:4/3}}
+@media(max-width:768px){nav{padding:16px 24px}.nav-links{display:none}.nav-links.open{display:flex;flex-direction:column;position:fixed;inset:0;background:rgba(6,6,8,.98);align-items:center;justify-content:center;gap:36px;z-index:200}.nav-links.open a{font-size:14px}.nav-hamburger{display:flex;z-index:300}section{padding:72px 24px}#hero{padding:100px 24px 72px}.portfolio-grid{grid-template-columns:1fr}.p-card-wide{grid-column:span 1}.p-card-wide .p-inner{grid-template-columns:1fr}.p-card-wide .p-cover{min-height:180px}.services-grid{grid-template-columns:1fr}.process-steps{grid-template-columns:1fr;gap:40px}.clients-list{grid-template-columns:1fr}.about-stats{gap:24px}footer{padding:28px 24px}.qr-wrap{gap:32px}.qr-frame{width:140px;height:140px}}
+</style>
+</head>
+<body>
+<nav id="main-nav">
+  <div class="nav-logo">Wayne AI</div>
+  <ul class="nav-links" id="nav-links">
+    <li><a href="#about" onclick="closeMenu()">關於我</a></li>
+    <li><a href="#services" onclick="closeMenu()">服務項目</a></li>
+    <li><a href="#portfolio" onclick="closeMenu()">作品</a></li>
+    <li><a href="#process" onclick="closeMenu()">流程</a></li>
+    <li><a href="#contact" onclick="closeMenu()">聯絡</a></li>
+  </ul>
+  <button class="nav-hamburger" id="hamburger" onclick="toggleMenu()" aria-label="選單">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-lines"></div>
+  <div class="hero-inner">
+    <div class="hero-eyebrow">AI 商業內容製作</div>
+    <h1 class="hero-title">用 <em>AI 影像</em>，<br>替店家做出會被看見的商業內容</h1>
+    <div class="hero-tags">AI廣告影片｜品牌聲量短片｜一頁式網站｜商業海報設計</div>
+    <p class="hero-desc">結合 AI 影像生成、廣告企劃、短影音腳本與商業視覺設計，協助在地店家快速建立品牌曝光與行銷素材。</p>
+    <div class="hero-cta">
+      <a href="#portfolio" class="btn-primary"><span>查看作品</span></a>
+      <a href="#contact" class="btn-secondary">聯絡我</a>
+    </div>
+  </div>
+  <div class="hero-scroll"><div class="scroll-line"></div><span>Scroll</span></div>
+</section>
+
+<section id="about">
+  <div class="about-grid">
+    <div class="about-visual reveal">
+      <div class="about-corner tl"></div>
+      <div class="about-corner br"></div>
+      <div class="about-visual-text">WAYNE AI</div>
+    </div>
+    <div class="about-content reveal rd2">
+      <div class="sec-label">About</div>
+      <h2 class="sec-title">關於 Wayne</h2>
+      <div class="gold-div"></div>
+      <p>我目前投入 <strong>AI 商業影音與在地店家內容製作</strong>，擅長將店家資訊、產品特色與行銷需求，整理成適合社群曝光與廣告使用的視覺內容。</p>
+      <p>我的工作重點不是單純產圖或剪片，而是協助店家把「<strong>想說的內容</strong>」轉換成「<strong>客人看得懂、願意停下來看的作品</strong>」。</p>
+      <p>透過 AI 工具與商業廣告思維，讓每一份素材都具備清晰的傳播目的與品牌識別。</p>
+      <div class="about-stats">
+        <div class="stat"><div class="stat-num">AI+</div><div class="stat-label">影像技術</div></div>
+        <div class="stat"><div class="stat-num">4種</div><div class="stat-label">服務類型</div></div>
+        <div class="stat"><div class="stat-num">在地</div><div class="stat-label">品牌專注</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="services">
+  <div class="services-inner">
+    <div class="reveal" style="margin-bottom:56px">
+      <div class="sec-label">Services</div>
+      <h2 class="sec-title">服務項目</h2>
+      <div class="gold-div"></div>
+    </div>
+    <div class="services-grid">
+      <div class="svc-card reveal">
+        <div class="svc-num">01</div>
+        <svg class="svc-icon" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="4" y="8" width="32" height="24" rx="1"/><polygon points="16,15 28,20 16,25" fill="currentColor" stroke="none"/></svg>
+        <div class="svc-name">聲量片</div>
+        <div class="svc-desc">適合社群曝光、品牌存在感累積與店家日常宣傳。重點是吸睛、快速傳達特色、提升被看見的機會。</div>
+      </div>
+      <div class="svc-card reveal rd1">
+        <div class="svc-num">02</div>
+        <svg class="svc-icon" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.2"><circle cx="20" cy="20" r="14"/><circle cx="20" cy="20" r="6"/><circle cx="20" cy="20" r="2" fill="currentColor" stroke="none"/></svg>
+        <div class="svc-name">廣告片</div>
+        <div class="svc-desc">適合產品推廣、活動宣傳與服務銷售。重點是開頭吸引、賣點明確、結尾有行動引導。</div>
+      </div>
+      <div class="svc-card reveal rd2">
+        <div class="svc-num">03</div>
+        <svg class="svc-icon" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="6" y="4" width="28" height="32" rx="1"/><line x1="12" y1="13" x2="28" y2="13"/><line x1="12" y1="20" x2="28" y2="20"/><line x1="12" y1="27" x2="20" y2="27"/></svg>
+        <div class="svc-name">一頁式網站</div>
+        <div class="svc-desc">適合產品介紹、方案說明與導流。用一個網頁完整呈現品牌、服務、優勢與聯絡方式。</div>
+      </div>
+      <div class="svc-card reveal rd3">
+        <div class="svc-num">04</div>
+        <svg class="svc-icon" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="4" y="4" width="32" height="32" rx="1"/><rect x="10" y="10" width="8" height="8"/><rect x="22" y="10" width="8" height="8"/><rect x="10" y="22" width="8" height="8"/><rect x="22" y="22" width="8" height="8"/></svg>
+        <div class="svc-name">商業海報</div>
+        <div class="svc-desc">適合活動曝光、產品促銷與品牌視覺。以高質感視覺提升專業感與點擊意願。</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="portfolio">
+  <div class="portfolio-inner">
+    <div class="reveal">
+      <div class="sec-label">Portfolio</div>
+      <h2 class="sec-title">精選作品</h2>
+      <p class="sec-subtitle">以下為 AI 影音與商業內容製作案例，包含廣告片、聲量片、一頁式網站與公益形象內容。</p>
+    </div>
+    <div class="portfolio-grid">
+
+      <div class="p-card reveal">
+        <div class="p-cover cv-tech">
+          <svg class="cv-svg" viewBox="0 0 400 225" xmlns="http://www.w3.org/2000/svg">
+            <defs><linearGradient id="g1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#C9A84C;stop-opacity:.6"/><stop offset="100%" style="stop-color:#C9A84C;stop-opacity:.1"/></linearGradient></defs>
+            <circle cx="200" cy="112" r="80" fill="none" stroke="url(#g1)" stroke-width="1"/>
+            <circle cx="200" cy="112" r="55" fill="none" stroke="url(#g1)" stroke-width=".5"/>
+            <circle cx="200" cy="112" r="30" fill="none" stroke="url(#g1)" stroke-width=".5"/>
+            <line x1="0" y1="112" x2="400" y2="112" stroke="#C9A84C" stroke-width=".3" stroke-dasharray="4 8"/>
+            <line x1="200" y1="0" x2="200" y2="225" stroke="#C9A84C" stroke-width=".3" stroke-dasharray="4 8"/>
+            <rect x="165" y="95" width="70" height="34" rx="2" fill="none" stroke="#C9A84C" stroke-width=".8" stroke-opacity=".7"/>
+            <text x="200" y="115" text-anchor="middle" font-family="monospace" font-size="8" fill="#C9A84C" fill-opacity=".8">SMART CAR</text>
+            <circle cx="120" cy="60" r="4" fill="#C9A84C" fill-opacity=".5"/>
+            <circle cx="280" cy="160" r="3" fill="#C9A84C" fill-opacity=".4"/>
+            <line x1="120" y1="60" x2="165" y2="95" stroke="#C9A84C" stroke-width=".4" stroke-opacity=".4"/>
+            <line x1="280" y1="160" x2="235" y2="129" stroke="#C9A84C" stroke-width=".4" stroke-opacity=".4"/>
+          </svg>
+          <div class="cv-badge"><div class="cv-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="7" width="22" height="12" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></div><div class="cv-txt">Smart Mobility</div></div>
+        </div>
+        <div class="p-body">
+          <span class="p-type">一頁式網站 · 商業廣告影片</span>
+          <div class="p-name">順利車管家</div>
+          <p class="p-desc">智慧車聯網服務案例，協助店家將遠端控車、定位追蹤、電子圍欄與車況提醒等功能，包裝成清楚易懂的商業介紹與廣告內容。</p>
+          <a href="#" class="p-link">查看作品</a>
+        </div>
+      </div>
+
+      <div class="p-card reveal rd1">
+        <div class="p-cover cv-warm">
+          <svg class="cv-svg" viewBox="0 0 400 225" xmlns="http://www.w3.org/2000/svg">
+            <defs><radialGradient id="g2" cx="50%" cy="50%" r="50%"><stop offset="0%" style="stop-color:#C9A84C;stop-opacity:.5"/><stop offset="100%" style="stop-color:#C9A84C;stop-opacity:0"/></radialGradient></defs>
+            <ellipse cx="200" cy="112" rx="100" ry="70" fill="url(#g2)"/>
+            <path d="M160 100 Q200 70 240 100 Q220 130 200 140 Q180 130 160 100Z" fill="none" stroke="#C9A84C" stroke-width=".8" stroke-opacity=".6"/>
+            <circle cx="200" cy="112" r="20" fill="none" stroke="#C9A84C" stroke-width="1" stroke-opacity=".5"/>
+            <path d="M60 150 Q130 90 200 112 Q270 134 340 80" fill="none" stroke="#C9A84C" stroke-width=".5" stroke-opacity=".4" stroke-dasharray="3 6"/>
+            <circle cx="200" cy="112" r="5" fill="#C9A84C" fill-opacity=".7"/>
+            <text x="200" y="175" text-anchor="middle" font-family="serif" font-size="9" fill="#C9A84C" fill-opacity=".45" letter-spacing="4">CHARITY · ART</text>
+          </svg>
+          <div class="cv-badge"><div class="cv-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div><div class="cv-txt">Brand Warmth</div></div>
+        </div>
+        <div class="p-body">
+          <span class="p-type">公益形象影片 · 商業廣告影片</span>
+          <div class="p-name">宸璽</div>
+          <p class="p-desc">結合公益活動、品牌溫度與商業影像敘事，將手作課程與社會關懷內容轉化成具情感張力的形象影片。</p>
+          <a href="#" class="p-link">查看作品</a>
+        </div>
+      </div>
+
+      <div class="p-card reveal rd2">
+        <div class="p-cover cv-repair">
+          <svg class="cv-svg" viewBox="0 0 400 225" xmlns="http://www.w3.org/2000/svg">
+            <defs><linearGradient id="g3" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" style="stop-color:#C9A84C;stop-opacity:.1"/><stop offset="50%" style="stop-color:#C9A84C;stop-opacity:.5"/><stop offset="100%" style="stop-color:#C9A84C;stop-opacity:.1"/></linearGradient></defs>
+            <rect x="60" y="50" width="280" height="125" rx="2" fill="none" stroke="url(#g3)" stroke-width="1"/>
+            <circle cx="200" cy="112" r="28" fill="none" stroke="#C9A84C" stroke-width=".8" stroke-opacity=".6"/>
+            <line x1="150" y1="112" x2="172" y2="112" stroke="#C9A84C" stroke-width="1.5" stroke-opacity=".8" stroke-linecap="round"/>
+            <line x1="228" y1="112" x2="250" y2="112" stroke="#C9A84C" stroke-width="1.5" stroke-opacity=".8" stroke-linecap="round"/>
+            <line x1="200" y1="84" x2="200" y2="100" stroke="#C9A84C" stroke-width="1.5" stroke-opacity=".8" stroke-linecap="round"/>
+            <line x1="200" y1="124" x2="200" y2="140" stroke="#C9A84C" stroke-width="1.5" stroke-opacity=".8" stroke-linecap="round"/>
+            <text x="200" y="116" text-anchor="middle" font-family="monospace" font-size="7" fill="#C9A84C" fill-opacity=".7">DR.A</text>
+          </svg>
+          <div class="cv-badge"><div class="cv-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></div><div class="cv-txt">Tech Service</div></div>
+        </div>
+        <div class="p-body">
+          <span class="p-type">品牌聲量片</span>
+          <div class="p-name">DR.A</div>
+          <p class="p-desc">協助維修服務品牌製作社群聲量短片，以簡潔有力的視覺與資訊呈現，提升品牌曝光與服務辨識度。</p>
+          <a href="#" class="p-link">查看作品</a>
+        </div>
+      </div>
+
+      <div class="p-card reveal">
+        <div class="p-cover cv-food">
+          <svg class="cv-svg" viewBox="0 0 400 225" xmlns="http://www.w3.org/2000/svg">
+            <defs><radialGradient id="g4" cx="50%" cy="60%" r="50%"><stop offset="0%" style="stop-color:#C9A84C;stop-opacity:.45"/><stop offset="100%" style="stop-color:#C9A84C;stop-opacity:0"/></radialGradient></defs>
+            <ellipse cx="200" cy="135" rx="120" ry="60" fill="url(#g4)"/>
+            <ellipse cx="200" cy="135" rx="80" ry="40" fill="none" stroke="#C9A84C" stroke-width=".8" stroke-opacity=".5"/>
+            <ellipse cx="200" cy="135" rx="40" ry="20" fill="none" stroke="#C9A84C" stroke-width=".6" stroke-opacity=".6"/>
+            <rect x="185" y="50" width="30" height="60" rx="15" fill="none" stroke="#C9A84C" stroke-width=".8" stroke-opacity=".5"/>
+            <text x="200" y="182" text-anchor="middle" font-family="serif" font-size="9" fill="#C9A84C" fill-opacity=".45" letter-spacing="3">PREMIUM DINING</text>
+          </svg>
+          <div class="cv-badge"><div class="cv-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg></div><div class="cv-txt">Fine Dining</div></div>
+        </div>
+        <div class="p-body">
+          <span class="p-type">餐飲品牌聲量片</span>
+          <div class="p-name">棠鐵板料理</div>
+          <p class="p-desc">以高級餐飲氛圍、料理畫面與品牌特色為核心，製作適合社群曝光的餐飲短影音內容。</p>
+          <a href="#" class="p-link">查看作品</a>
+        </div>
+      </div>
+
+      <div class="p-card p-card-wide reveal rd1">
+        <div class="p-inner">
+          <div class="p-cover cv-more">
+            <svg class="cv-svg" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg" style="height:100%">
+              <defs><linearGradient id="g5" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#C9A84C;stop-opacity:.5"/><stop offset="100%" style="stop-color:#C9A84C;stop-opacity:.05"/></linearGradient></defs>
+              <rect x="40" y="40" width="80" height="50" rx="2" fill="none" stroke="url(#g5)" stroke-width=".8"/>
+              <rect x="160" y="30" width="80" height="50" rx="2" fill="none" stroke="url(#g5)" stroke-width=".8"/>
+              <rect x="280" y="45" width="80" height="50" rx="2" fill="none" stroke="url(#g5)" stroke-width=".8"/>
+              <rect x="40" y="130" width="80" height="50" rx="2" fill="none" stroke="url(#g5)" stroke-width=".8"/>
+              <rect x="160" y="140" width="80" height="50" rx="2" fill="none" stroke="url(#g5)" stroke-width=".8"/>
+              <rect x="280" y="125" width="80" height="50" rx="2" fill="none" stroke="url(#g5)" stroke-width=".8"/>
+              <line x1="120" y1="65" x2="160" y2="55" stroke="#C9A84C" stroke-width=".4" stroke-opacity=".3"/>
+              <line x1="240" y1="55" x2="280" y2="70" stroke="#C9A84C" stroke-width=".4" stroke-opacity=".3"/>
+              <line x1="80" y1="90" x2="80" y2="130" stroke="#C9A84C" stroke-width=".4" stroke-opacity=".3"/>
+              <line x1="200" y1="80" x2="200" y2="140" stroke="#C9A84C" stroke-width=".4" stroke-opacity=".3"/>
+              <text x="200" y="240" text-anchor="middle" font-family="monospace" font-size="9" fill="#C9A84C" fill-opacity=".35" letter-spacing="4">MORE WORKS COMING</text>
+            </svg>
+          </div>
+          <div class="p-body">
+            <span class="p-type">AI 商業內容製作</span>
+            <div class="p-name">更多在地店家案例</div>
+            <p class="p-desc">持續累積在地店家聲量片、廣告片與一頁式網站作品，協助不同產業建立更清楚、更有質感的品牌呈現。</p>
+            <a href="#contact" class="p-link">洽詢合作</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section id="process">
+  <div class="process-inner">
+    <div class="reveal" style="text-align:center;margin-bottom:72px">
+      <div class="sec-label" style="justify-content:center"><span>Process</span></div>
+      <h2 class="sec-title" style="text-align:center">我的製作流程</h2>
+    </div>
+    <div class="process-steps">
+      <div class="p-step reveal">
+        <div class="step-num-wrap"><div class="step-num">01</div></div>
+        <div class="step-title">需求整理</div>
+        <p class="step-desc">了解店家產業、服務內容、目標客群與想解決的行銷問題。</p>
+      </div>
+      <div class="p-step reveal rd1">
+        <div class="step-num-wrap"><div class="step-num">02</div></div>
+        <div class="step-title">企劃與腳本</div>
+        <p class="step-desc">整理主打賣點、影片方向、文案架構與視覺風格。</p>
+      </div>
+      <div class="p-step reveal rd2">
+        <div class="step-num-wrap"><div class="step-num">03</div></div>
+        <div class="step-title">AI 影像製作</div>
+        <p class="step-desc">運用 AI 工具生成視覺素材、廣告畫面與影音元素。</p>
+      </div>
+      <div class="p-step reveal rd3">
+        <div class="step-num-wrap"><div class="step-num">04</div></div>
+        <div class="step-title">剪輯與交付</div>
+        <p class="step-desc">整合成可用於社群、廣告或網站的成品，並依需求進行調整。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="clients">
+  <div class="clients-inner">
+    <div class="reveal" style="text-align:center;margin-bottom:56px">
+      <div class="sec-label" style="justify-content:center"><span>Who I Work With</span></div>
+      <h2 class="sec-title" style="text-align:center">適合合作對象</h2>
+    </div>
+    <div class="clients-list reveal">
+      <div class="c-item"><div class="c-dot"></div><div class="c-text">想提升社群曝光的在地店家</div></div>
+      <div class="c-item"><div class="c-dot"></div><div class="c-text">需要廣告影片但沒有素材的品牌</div></div>
+      <div class="c-item"><div class="c-dot"></div><div class="c-text">想做一頁式網站介紹服務的業主</div></div>
+      <div class="c-item"><div class="c-dot"></div><div class="c-text">需要商業海報與短影音素材的店家</div></div>
+      <div class="c-item" style="grid-column:1/-1"><div class="c-dot"></div><div class="c-text">想用 AI 提高內容產出效率的小型品牌</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="contact-inner">
+    <div class="reveal">
+      <div class="sec-label" style="justify-content:center"><span>Contact</span></div>
+      <h2 class="sec-title">聯絡我</h2>
+      <div class="gold-div" style="margin:0 auto 24px"></div>
+      <p class="contact-desc">如果你想製作 AI 影音、廣告片、一頁式網站或商業海報，<br>歡迎透過以下方式聯繫。</p>
+    </div>
+    <div class="qr-wrap reveal rd1">
+      <!-- 此處替換為 Facebook QR Code -->
+      <div class="qr-block">
+        <div class="qr-frame">
+          <div class="qr-corner-bl"></div>
+          <div class="qr-corner-br2"></div>
+          <img id="fb-qr" alt="Facebook QR Code"/>
+        </div>
+        <div class="qr-label">Facebook 粉專</div>
+      </div>
+      <!-- 此處替換為 LINE 官方帳號 QR Code -->
+      <div class="qr-block">
+        <div class="qr-frame">
+          <div class="qr-corner-bl"></div>
+          <div class="qr-corner-br2"></div>
+          <img id="line-qr" alt="LINE QR Code"/>
+        </div>
+        <div class="qr-label">LINE 官方帳號</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">Wayne AI 商業內容作品集</div>
+  <div class="footer-copy">© 2026 Wayne AI 商業內容作品集｜AI廣告影片・品牌聲量短片・一頁式網站・商業海報</div>
+</footer>
+
+<script>
+// QR Codes (embedded as base64)
+document.getElementById('fb-qr').src='data:image/png;base64,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';
+document.getElementById('line-qr').src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQgAAAEICAIAAAAslP2oAAAFEklEQVR4nO3dMY4sNRRAUQYR9V5I2QzrYzOkbIiEBOk6sGTLduuceH5N/Z65slRvXP75fD6/AP/36+kbgBsJA4IwIAgDgjAgCAOCMCAIA4IwIAgDgjAgCAOCMCAIA4IwIPw2+w/+/uv3Hfex3B9//rPkOqP/7+z1V31uo++7+/oj3/r7YMWAIAwIwoAgDAjCgCAMCMKAMD3HGFk1N5i16jn6K8/jZ+/z1M/l9d8HKwYEYUAQBgRhQBAGBGFAEAaEZXOMkVP7BEZ2zwFWXX/VPpDb3Pb7MGLFgCAMCMKAIAwIwoAgDAjCgLB9jvGKVfOE19/L9K3zk1lWDAjCgCAMCMKAIAwIwoAgDAjmGP+ZnSes2ncxOz+ZnTPcNid5hRUDgjAgCAOCMCAIA4IwIAgDwvY5xit/x79qH8Wq/+/uz+3U3OOV3wcrBgRhQBAGBGFAEAYEYUAQBoRlc4xv/bv/VfsfTn39Ka//PlgxIAgDgjAgCAOCMCAIA4IwIEzPMW57Xn6bVz6fV87bPsWKAUEYEIQBQRgQhAFBGBCEAeHn8/lM/YNXzmfY/Xz91L6I29779K0/XysGBGFAEAYEYUAQBgRhQBAGhGPnfJ96b9Kq87lXXX/Wqc9h1ed26uc7e30rBgRhQBAGBGFAEAYEYUAQBoTp/Rgju99TtHv+MOu28x9uO69j1m3vp7JiQBAGBGFAEAYEYUAQBgRhQNi+H+PUXOK2/QOvnOd96v1gt30+VgwIwoAgDAjCgCAMCMKAIAwI2/djnHoufttcYvY6I9+6L+K2/TZWDAjCgCAMCMKAIAwIwoAgDAjXvVdq5JX9D7fNN1ZdfzfnY8ADhAFBGBCEAUEYEIQBQRgQrjvne2TVc/fbnt+P3Db3mP2+p+7fe6VgI2FAEAYEYUAQBgRhQBAGhOk5xqp9Dquef+9+Hr/bbedwz15/1X2e2vcyYsWAIAwIwoAgDAjCgCAMCMKAMD3HOPV8feTU+5dWPS9fNbe5bZ/JK/tJRqwYEIQBQRgQhAFBGBCEAUEYEJbtx5j9+lNzgFXXPzW32b2fYdXXzzq1n2TEigFBGBCEAUEYEIQBQRgQhAFh2fkYt52H/a37HEZW7Wc4dd7FKt4rBRsJA4IwIAgDgjAgCAOCMCD8fD6fqX9w6jyH286lnr3+yKr5yevvcZrlfAw4QBgQhAFBGBCEAUEYEIQBYfscY7dX9kuc2u/xyj6TU+/jGrFiQBAGBGFAEAYEYUAQBgRhQJieY7xu93Px2/Z7jLx+/7PMMWABYUAQBgRhQBAGBGFAEAaE7ed8n3LqPOxVbnuv1Ox1Tp2/vooVA4IwIAgDgjAgCAOCMCAIA8Kxc75XmX0ef+o9TiO772fV+SQjq37up853H7FiQBAGBGFAEAYEYUAQBgRhQFg2xxg5db7BquuP7n/V8/5vPb98lVPf14oBQRgQhAFBGBCEAUEYEIQBYfsc4xW79y2smnus+r6n9lGM3PaeKysGBGFAEAYEYUAQBgRhQBAGBHOM/5w693rktvc7rdqXspv3SsFGwoAgDAjCgCAMCMKAIAwI2+cYp87NGJm9n1fe+zRr9n5WzXlO7UuZZcWAIAwIwoAgDAjCgCAMCMKAsGyOcdvf5Y+ceo6++3n863OS3deZZcWAIAwIwoAgDAjCgCAMCMKA8PP5fE7fA1zHigFBGBCEAUEYEIQBQRgQhAFBGBCEAUEYEIQBQRgQhAFBGBCEAeFfg6L3qeD2aWIAAAAASUVORK5CYII=';
+
+// Nav scroll
+window.addEventListener('scroll',()=>{
+  document.getElementById('main-nav').classList.toggle('scrolled',window.scrollY>60)
+})
+
+// Mobile menu
+function toggleMenu(){
+  const nl=document.getElementById('nav-links')
+  nl.classList.toggle('open')
+}
+function closeMenu(){
+  document.getElementById('nav-links').classList.remove('open')
+}
+
+// Scroll reveal
+const obs=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')})
+},{threshold:.12})
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el))
+</script>
+</body>
+</html>
