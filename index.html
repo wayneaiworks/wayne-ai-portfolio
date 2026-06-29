@@ -87,6 +87,21 @@
     0%   { left: -60%; opacity: 0.6; }
     100% { left: 160%; opacity: 0; }
   }
+  /* 黑金網點互動背景 */
+  .hero-dotgrid {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    pointer-events: none;
+  }
+  .hero-bg { z-index: 0; }
+  .hero-scan { z-index: 2; }
+  .hero-eyebrow, .hero h1, .hero-sub, .hero-desc, .hero-btns, .hero-line {
+    position: relative;
+    z-index: 3;
+  }
   .hero-eyebrow {
     font-size: 0.7rem;
     letter-spacing: 0.28em;
@@ -586,6 +601,7 @@
 <section class="hero" id="home">
   <div class="hero-bg"></div>
   <div class="hero-scan"></div>
+  <canvas class="hero-dotgrid" id="heroDotGrid"></canvas>
   <p class="hero-eyebrow">Wayne AI 商業內容作品集</p>
   <h1>用 AI 影像，替店家做出<em>會被看見的</em>商業內容</h1>
   <p class="hero-sub">AI廣告影片｜品牌聲量短片｜一頁式網站｜商業海報設計</p>
@@ -846,6 +862,74 @@
 </footer>
 
 <script>
+  // 黑金網點互動背景
+  (function() {
+    const canvas = document.getElementById('heroDotGrid');
+    const hero = document.querySelector('.hero');
+    if (!canvas || !hero) return;
+    const ctx = canvas.getContext('2d');
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    let w, h, dots = [];
+    const spacing = 34;
+    const mouse = { x: -9999, y: -9999 };
+
+    function resize() {
+      const rect = hero.getBoundingClientRect();
+      w = canvas.width = rect.width;
+      h = canvas.height = rect.height;
+      dots = [];
+      for (let y = spacing / 2; y < h; y += spacing) {
+        for (let x = spacing / 2; x < w; x += spacing) {
+          dots.push({ x, y, phase: Math.random() * Math.PI * 2 });
+        }
+      }
+    }
+
+    function onMove(e) {
+      const rect = hero.getBoundingClientRect();
+      mouse.x = e.clientX - rect.left;
+      mouse.y = e.clientY - rect.top;
+    }
+    function onLeave() {
+      mouse.x = -9999;
+      mouse.y = -9999;
+    }
+
+    hero.addEventListener('mousemove', onMove);
+    hero.addEventListener('mouseleave', onLeave);
+    window.addEventListener('resize', resize);
+
+    const radius = 170;
+    let t = 0;
+
+    function draw() {
+      ctx.clearRect(0, 0, w, h);
+      t += 0.015;
+      for (const d of dots) {
+        const dx = d.x - mouse.x;
+        const dy = d.y - mouse.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        const proximity = Math.max(0, 1 - dist / radius);
+        const ambient = reduceMotion ? 0.5 : 0.5 + 0.5 * Math.sin(t + d.phase);
+        const baseAlpha = 0.06 + ambient * 0.05;
+        const alpha = baseAlpha + proximity * 0.55;
+        const size = 1.1 + proximity * 2.2;
+        const r = 201 + (232 - 201) * proximity;
+        const g = 168 + (213 - 168) * proximity;
+        const b = 76 + (163 - 76) * proximity;
+        ctx.beginPath();
+        ctx.arc(d.x, d.y, size, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(${r},${g},${b},${alpha})`;
+        ctx.fill();
+      }
+      requestAnimationFrame(draw);
+    }
+
+    resize();
+    draw();
+  })();
+
   // Scroll reveal
   const reveals = document.querySelectorAll('.reveal');
   const observer = new IntersectionObserver((entries) => {
